@@ -21,7 +21,7 @@ git config --global --add safe.directory "$REPO_DIR"
 inotifywait -m -r -e modify,create,delete,move \
   --format '%e %w%f' "$WATCH_DIR" | while read -r EVENT FILE; do
     # Only act on docker-compose files
-    if [[ "$FILE" == *.yml || "$FILE" == *.yaml ]]; then
+    if [[ "$FILE" == *docker-compose.yml || "$FILE" == *docker-compose.yaml ]]; then
         echo "[$(date)] Event: $EVENT | File: $FILE" >> "$LOG_FILE"
 
         # Stage all changes (adds, deletes, renames, updates)
@@ -33,6 +33,6 @@ inotifywait -m -r -e modify,create,delete,move \
             git push origin "$BRANCH" >> "$LOG_FILE" 2>&1 || echo "[$(date)] Push failed" >> "$LOG_FILE"
         else
             echo "[$(date)] No changes to commit." >> "$LOG_FILE"
-	fi
+        fi
     fi
 done
