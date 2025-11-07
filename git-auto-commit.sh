@@ -21,7 +21,7 @@ git config --global --add safe.directory "$REPO_DIR"
 inotifywait -m -r -e modify,create,delete,move \
   --format '%e %w%f' "$WATCH_DIR" | while read -r EVENT FILE; do
     # Only act on docker-compose files
-    if [[ "$FILE" == *docker-compose.yml || "$FILE" == *docker-compose.yaml ]]; then
+    if [[ "$FILE" == *.yml || "$FILE" == *.yaml ]]; then
         echo "[$(date)] Event: $EVENT | File: $FILE" >> "$LOG_FILE"
 
         # Stage all changes (adds, deletes, renames, updates)
