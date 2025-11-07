@@ -33,3 +33,6 @@ inotifywait -m -r -e modify,create,delete,move \
             git push origin "$BRANCH" >> "$LOG_FILE" 2>&1 || echo "[$(date)] Push failed" >> "$LOG_FILE"
         else
             echo "[$(date)] No changes to commit." >> "$LOG_FILE"
+	fi
+    fi
+done
